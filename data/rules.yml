@@ -42,8 +42,8 @@ rules:
     steps:
       - intent: provide_city
       - slot_was_set:
-          - user_city: true  # Явно устанавливаем слот
-      - action: action_save_user_data  # Вызываем действие сохранения
+          - user_city: true  
+      - action: action_save_user_data  
       - action: action_listen
 
   - rule: Time request
