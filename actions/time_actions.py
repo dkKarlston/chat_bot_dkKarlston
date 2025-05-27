@@ -4,7 +4,6 @@ import datetime
 from typing import Dict, Any, Text, List
 
 class ActionGetTime(Action):
-    # Добавляем обязательный метод name()
     def name(self) -> Text:
         return "action_get_time"
 
