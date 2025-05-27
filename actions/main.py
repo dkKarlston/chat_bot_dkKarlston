@@ -35,7 +35,7 @@ class ActionSaveUserData(Action):
             return []
 
         # Получаем из слотов, если сущности не найдены
-        name = name or tracker.get_slot("user_name")  # Без дефолтных значений
+        name = name or tracker.get_slot("user_name")  
         city = city or tracker.get_slot("user_city")
 
         logger.info(f"User ID: {user_id}")
@@ -73,8 +73,8 @@ class ActionSaveUserData(Action):
             dispatcher.utter_message("😞 Ошибка при работе с базой данных")
 
         return [
-            SlotSet("user_name", name),  # Убираем проверку на "Не указано"
-            SlotSet("user_city", city)  # Убираем проверку на "Не указан"
+            SlotSet("user_name", name),  
+            SlotSet("user_city", city)  
         ]
 
 
