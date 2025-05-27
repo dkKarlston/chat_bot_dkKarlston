@@ -10,13 +10,13 @@ nlp_en = spacy.load("en_core_web_sm")
 
 
 class ActionLogDialog(Action):
-    def name(self) -> Text:  # Исправлен тип
+    def name(self) -> Text:  
         return "action_log_dialog"
 
     def run(self,
             dispatcher: CollectingDispatcher,
             tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:  # Исправлены аннотации
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:  
 
         user_input = tracker.latest_message.get("text", "")
         bot_response = tracker.get_last_bot_utterance().get("text", "")
@@ -32,13 +32,13 @@ class ActionLogDialog(Action):
 
 
 class ActionLemmatizeText(Action):
-    def name(self) -> Text:  # Исправлен тип
+    def name(self) -> Text: 
         return "action_lemmatize_text"
 
     def run(self,
             dispatcher: CollectingDispatcher,
             tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:  # Исправлены аннотации
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:  
 
         text = tracker.latest_message.get("text", "")
 
@@ -47,7 +47,7 @@ class ActionLemmatizeText(Action):
             return []
 
         try:
-            # Инициализация переводчика внутри метода
+            
             translator = GoogleTranslator(source='auto', target='en')
             translated = translator.translate(text)
 
@@ -72,7 +72,7 @@ class ActionRespondGreet(Action):
         return "action_respond_greet"
 
     def run(self, dispatcher, tracker, domain):
-        # Перенаправляем на стандартный ответ utter_greet
+       
         dispatcher.utter_message(response="utter_greet")
         return []
 
