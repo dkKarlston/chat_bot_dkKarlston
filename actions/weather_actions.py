@@ -15,11 +15,10 @@ class ActionGetWeather(Action):
         return "action_get_weather"
 
     def run(self, dispatcher, tracker, domain):
-        # Получаем город из последнего сообщения пользователя
         user_message = tracker.latest_message.get('text')
         city = next(tracker.get_latest_entity_values("city"), None)
 
-        # Если город не найден через сущность, попробуем извлечь вручную
+
         if not city and "погода" in user_message.lower():
             city = user_message.split("погода")[-1].strip()
 
@@ -27,7 +26,7 @@ class ActionGetWeather(Action):
             dispatcher.utter_message(text="Пожалуйста, уточните город для получения погоды.")
             return []
 
-        # Очистка названия города
+
         city = city.replace("в ", "").replace("для ", "").strip()
 
 
@@ -59,11 +58,10 @@ class ActionGetWeather(Action):
             pressure = main_data["pressure"]
             description = weather_data["description"]
 
-            # Конвертируем время
+
             sunrise = datetime.datetime.fromtimestamp(sys_data["sunrise"]).strftime("%H:%M")
             sunset = datetime.datetime.fromtimestamp(sys_data["sunset"]).strftime("%H:%M")
 
-            # Формируем ответы
             responses = [
                 f"В {city} сейчас {description}, {temp}°C. Давление: {pressure} гПа. "
                 f"Солнце: восход {sunrise}, закат {sunset}.",
