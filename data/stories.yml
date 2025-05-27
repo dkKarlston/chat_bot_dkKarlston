@@ -1,0 +1,27 @@
+version: "3.1"
+
+stories:
+  - story: Greeting flow
+    steps:
+      - intent: greet
+      - action: utter_greet
+
+  - story: How are you flow
+    steps:
+      - intent: ask_how_are_you
+      - action: utter_how_are_you
+
+  - story: Abilities flow
+    steps:
+      - intent: ask_abilities
+      - action: utter_abilities
+  - story: Save name and city
+    steps:
+      - intent: provide_name
+        entities:
+          - user_name
+      - action: action_save_user_data
+      - intent: provide_city
+        entities:
+          - user_city
+      - action: action_save_user_data

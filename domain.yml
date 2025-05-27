@@ -1,0 +1,117 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - search_web
+  - calculate
+  - mood_check
+  - provide_name
+  - provide_city
+  - ask_weather
+  - ask_time
+  - ask_date
+  - ask_name
+  - ask_city
+  - ask_how_are_you
+  - ask_abilities
+
+entities:
+  - city:
+      synonyms:
+        петербург: Санкт-Петербург
+        спб: Санкт-Петербург
+        нью йорк: Нью-Йорк
+        нск: Новосибирск
+        мск: Москва
+      automated_expansion: true
+  - query
+  - expression
+  - user_name
+  - user_city
+  - emotion
+
+slots:
+  emotion:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: emotion
+
+  city:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: city
+
+  user_name:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: user_name
+
+  user_city:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: user_city
+        intent: provide_city
+
+  query:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: query
+
+actions:
+  - action_save_user_data
+  - action_search_web
+  - action_calculate
+  - action_analyze_mood
+  - action_respond_greet
+  - action_respond_goodbye
+  - action_get_weather
+  - action_get_time
+  - action_check_saved_data
+  - action_get_profile
+
+
+responses:
+  utter_greet:
+    - text: "Привет! Выбери опцию:"
+      buttons:
+        - title: "Погода"
+          payload: "/ask_weather"
+        - title: "Новости"
+          payload: "/ask_news"
+  utter_how_are_you:
+    - text: "У меня всё отлично, спасибо! Чем могу помочь?"
+
+  utter_abilities:
+    - text: "Я умею показывать погоду, искать в интернете, выполнять расчеты и анализировать настроение. Что тебя интересует?"
+  utter_done:
+    - text: "Изменения сохранены! ✅"
+  utter_goodbye:
+    - text: "Пока!"
+  utter_iamabot:
+    - text: "Я бот, созданный для помощи."
+  utter_ask_name:
+    - text: "Как тебя зовут?"
+  utter_name:
+    - text: "Рад познакомиться, {name}!"
+  utter_ask_next:
+    - text: "Что ты хочешь сделать дальше?"
+  utter_ask_city:
+    - text: "Уточни, пожалуйста, в каком городе ты хочешь узнать погоду."
+  utter_ask_fact_category:
+    - text: "Уточни, про какую тему ты хочешь узнать факт."
+  utter_ask_topic:
+    - text: "Какая тема тебе интересна?"
+  utter_welcome_back:
+    - text: "С возвращением, {name}! Готов продолжить говорить о {favorite_topic}?"
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+  session_started_metadata:
+    execute_action: action_check_saved_data
